@@ -43,7 +43,7 @@ export default {
       },
       generateToolTip () {
           //  Tooltip Object
-          this.tooltip = d3.select("body")
+          this.tooltip = d3.select("#calendar_nav")
             .append("div").attr("id", "tooltip")
             .style("position", "absolute")
             .style("z-index", "10")
@@ -73,7 +73,7 @@ export default {
             var calendar_nav = d3.select('#canlender_nav')
                 .style("height", height + 'px')
                 .style("width", '100%')
-        
+                  
             var svg = d3.select("#calendar_nav").selectAll("svg")
                 .data(d3.range(vm.currentYear, vm.currentYear + 1))
                 .enter().append("svg")
@@ -88,7 +88,7 @@ export default {
                   return d3.timeDays(new Date(vm.currentYear, 0, 1), new Date(vm.currentYear + 1, 0, 1));
                 })
                 .enter().append("rect")
-                .attr("class", "day")
+                // .attr("class", "day")
                 .attr("width", cellSize)
                 .attr("height", cellSize)
                 .attr("x", function(d) {
@@ -152,12 +152,16 @@ export default {
                       }
                   }
                   // 量子化 定义 颜色转换函数
-                  var color = d3.scaleQuantize()
-                      .domain([1, vm.EQUIPMENT_STOP_NUM_MAX])
-                      .range(d3.range(1,11,1).map(function(d) { return "q" + d + "-11"; }));
-        
+                  // var color = d3.scaleQuantize()
+                  //     .domain([1, vm.EQUIPMENT_STOP_NUM_MAX])
+                  //     .range(d3.range(1,11,1).map(function(d) { return "q" + d + "-11"; }));
+
+                  var color = d3.scaleQuantile ()
+                      .domain(d3.range(1, vm.EQUIPMENT_STOP_NUM_MAX))
+                      .range(d3.schemeBlues[9]);
                     // 赋值颜色
-                    rect.attr("class", function(d) { return "day " + color(data['$' + d]); })
+                    // rect.attr("class", function(d) { return "day " + color(data['$' + d]); })
+                    rect.attr("fill", function(d) { return color(data['$' + d]); })
                         // .select("title")
                         // .text(function(d) { return d + ": " + (data['$' + d]); });
               
@@ -167,7 +171,7 @@ export default {
                       let d = '$' + date
                       vm.tooltip.style("visibility", "visible");
                       var equipment_stop_num = (data[d] !== undefined) ? (data[d]) : (0);
-                      var purchase_text = date + ": " + equipment_stop_num;
+                      var purchase_text = "Date: " + date + " </br> StopNum: " + equipment_stop_num;
               
                       vm.tooltip.transition()
                                   .duration(200)
@@ -188,10 +192,14 @@ export default {
                     // click
                     rect.on("click", handleClick);
                     function handleClick (d) {
-                        console.log(d)
+                        // console.log(d)
+                        vm.$emit('select', d)
                     }
+                } else if (response.status === 404) {
+                  console.log('not found')
+                  rect.attr('class', 'day')
                 } else {
-                  console.log('error')
+                  console.log('server error')
                 }
             }).catch(function (error) {
               console.log(error)
@@ -208,8 +216,6 @@ export default {
             function yearTitle (t0) {
               return t0.toString().split(" ")[3];
             }
-        
-        
             // copy code here before
       }
   },
@@ -220,7 +226,7 @@ export default {
 };
 </script>
 
-    <style>
+    <style scoped>
 
       #calendar_nav{
         padding: 0;

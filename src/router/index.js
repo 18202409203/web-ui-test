@@ -5,6 +5,7 @@ import pec from '../components/procedureEquipmentConfig.vue'
 import heat from '../components/heatmap.vue'
 import test from '../components/test.vue'
 import flow from '../components/flowchart.vue'
+import calendar from '../components/calendarNav_new.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/flow',
       name: 'flow',
       component: flow
-    }
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: calendar
+    },
   ]
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
       <el-row>
-        <calendar-nav ></calendar-nav>
+        <calendar-nav @select="handleClick"></calendar-nav>
       </el-row>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   data () {
       return {
           
+      }
+  },
+  methods:{
+      handleClick (val) {
+          console.log(val)
       }
   },
   components: { calendarNav }

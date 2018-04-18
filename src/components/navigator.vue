@@ -8,9 +8,14 @@
                 <span>工艺配置</span>
             </div>
         </router-link>
-        <router-link to="/heat">
+        <!-- <router-link to="/heat">
             <div class="nav">
                 <span>热力图</span>
+            </div>
+        </router-link> -->
+        <router-link to="/calendar">
+            <div class="nav">
+                <span>日历导航</span>
             </div>
         </router-link>
         <router-link to="/test">
