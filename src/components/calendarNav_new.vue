@@ -1,16 +1,21 @@
 <template>
-<el-row>
-  <div id="calendar_navigator">
-  
-  </div>
-</el-row>
+    <div>
+        <el-row>
+            <div id="calendar_navigator"></div>
+        </el-row>
+        <el-row>
+            <main-chart ref="navor"></main-chart>
+        </el-row>
+    </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
 import axios from 'axios'
+import mainChart from './bubble.vue'
 
 export default {
+    components: { mainChart },
     data() {
         return {
             dataSet: [],
@@ -165,7 +170,8 @@ export default {
             rect.on("click", handleClick);
             function handleClick (d) {
                 console.log(d)
-                // vm.$emit('select', d)
+                // 触发子组件取数函数
+                vm.$refs.navor.fetchData(d)
             }
 
             // month path
