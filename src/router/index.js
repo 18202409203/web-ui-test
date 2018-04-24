@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import pec from '../components/procedureEquipmentConfig.vue'
-import heat from '../components/heatmap.vue'
+import timelines from '../components/timelines.vue'
 import test from '../components/test.vue'
 import flow from '../components/flowchart.vue'
 import calendar from '../components/calendarNav_new.vue'
@@ -22,9 +22,9 @@ export default new Router({
       component: pec
     },
     {
-      path: '/heat',
-      name: 'heat',
-      component: heat
+      path: '/tl',
+      name: 'tl',
+      component: timelines
     },
     {
       path: '/test',

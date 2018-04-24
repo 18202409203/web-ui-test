@@ -175,6 +175,7 @@ export default {
             var _svg = d3.select('#bubble_container').append('svg')
                 .attr("width", 100)
                 .attr("height", 100)
+                .attr('fill-opacity', 0.7)
                 .style('position', 'absolute')
                 // .style('left', _this.cx.animVal.value + vm.innerWidth + 'px')
                 // .style('top', _this.cy.animVal.value + vm.innerHeight + 'px')
@@ -187,9 +188,19 @@ export default {
         // fetch data
         fetchData (date) {
             this.DATE = date
+            Date.prototype.monthHeader = function () {
+                // 返回当月第一天
+                return this.getFullYear() + '-' + (Number(this.getMonth()) + 1) + '-1'
+            }
+            Date.prototype.monthTailer = function () {
+                // 返回当月最后一天
+                let _this = new Date(this.setMonth( this.getMonth() + 1 ))
+                    _this = new Date(_this.setDate(1) - 1000 * 60 * 60 * 24)
+                return _this.getFullYear() + '-' + (Number(_this.getMonth()) + 1) + '-' + _this.getDate()
+            }
             let vm = this
             d3.select('#bubble_container svg').remove()
-            axios.get(this.ip + 'lyj/stoptime/getStopTimeOnEquipByDateAndProcedureid/' + '2015-01-01' + '/' + '2015-02-01' + '/all').then(response => {
+            axios.get(this.ip + 'lyj/stoptime/getStopTimeOnEquipByDateAndProcedureid/' +new Date(date).monthHeader() + '/' + new Date(date).monthTailer() + '/all').then(response => {
                 if(response.status === 200) {
                     // console.log(response.data)
                     this.dataSet = response.data
