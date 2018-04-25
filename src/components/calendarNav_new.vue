@@ -85,6 +85,11 @@ export default {
                     return d;
                 });
 
+            var chartContainer = svg
+                .append("g")
+                .attr("fill", "none")
+                .attr("stroke", "#ccc")
+
             var rect = svg
                 .append("g")
                 .attr("fill", "none")
@@ -119,7 +124,20 @@ export default {
             // color
             var color = d3.scaleQuantile ()
                 .domain(d3.range(1, vm.EQUIPMENT_STOP_NUM_MAX))
-                .range(d3.schemeBlues[9]);
+                .range(d3.schemeReds[9]);
+
+            // brush
+            // svg.append("g")
+            // .call(d3.brush()
+            // .extent([[0, 0], [1060, 140]])
+            // .on("brush", brushed).on("end", brushended));
+
+            // function brushed() {
+
+            // }
+            // function brushended() {
+
+            // }
 
             // data 
             var data = d3
@@ -155,6 +173,9 @@ export default {
                     // .style("top", (d3.event.pageY) + "px")
                     .style("left", d3.event.layerX + vm.CELL_SIZE + "px")
                     .style("top", d3.event.layerY + vm.CELL_SIZE +  "px")
+                d3.select(this)
+                   .style("stroke", "black")
+                   .style("stroke-width", "2px")
             }
             // mouse out
             rect.on("mouseout", mouseout);
@@ -164,6 +185,9 @@ export default {
                     .style("opacity", 0);
                 var $tooltip = $("#tooltip");
                 $tooltip.empty();
+                d3.select(this)
+                   .style("stroke", "")
+                   .style("stroke-width", "")
             }
 
             // click
@@ -215,4 +239,12 @@ export default {
     }
 };
 </script>
+
+<!--
+<style>
+.brush{fill:#FF0;}
+.brush .extent{fill-opacity: .825;}
+.brush .background{fill: red;}
+</style>
+-->
 
