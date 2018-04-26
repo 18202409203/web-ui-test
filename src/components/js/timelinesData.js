@@ -1,5 +1,5 @@
 export default function getRandomData(_data = []) {
-
+    console.log(_data)
     const NGROUPS = _data.length // 工艺流程数
     // const MAXCATEGORIES = 12
     //   MINTIME = new Date(startTime); // 起始日期
@@ -49,17 +49,18 @@ export default function getRandomData(_data = []) {
           const start = d.statusData[i].startTime
           const end = d.statusData[i].endTime
           return {
+            detailInfos: d.statusData[i],
             timeRange: [start, end],
             val: function() {
-                for (let j = 0; j < categoryLabels.length; j ++){
-                    console.log(d.statusData[i].stopCauseCode, categoryLabels[j].stopCode)
-                    if (d.statusData[i].stopCauseCode == categoryLabels[j].stopCode){
-                        return categoryLabels[j].stopName
-                    }
-                }
+                // for (let j = 0; j < categoryLabels.length; j ++){
+                //     // console.log(d.statusData[i].stopCauseCode, categoryLabels[j].stopCode)
+                //     if (d.statusData[i].stopCauseCode == categoryLabels[j].stopCode){
+                //         return categoryLabels[j].stopName
+                //     }
+                // }
                 return d.statusData[i].stopCauseCode
-            }()
-            //labelVal: is optional - only displayed in the labels
+            }(),
+            labelVal: function () {return d.statusData[i].stopName} ()
           };
         });
   

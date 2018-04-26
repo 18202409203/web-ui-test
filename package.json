@@ -12,8 +12,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "d3-svg-legend": "^2.25.6",
+    "d3-tip": "^0.7.1",
     "element-ui": "^1.4.13",
     "jquery": "^3.3.1",
+    "jsplumb": "^2.6.9",
+    "timelines-chart": "git+https://github.com/18202409203/timelines-chart.git",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

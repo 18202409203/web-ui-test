@@ -35,8 +35,35 @@ export default {
                     // console.log(data)
                     TimelinesChart()
                         .data(getRandomData(data))
-                        .zQualitative(true)
-                        // .zColorScale()
+                        // *******************************************//
+                        .zColorScale(
+                            d3.scaleOrdinal() // 按顺序依次对应 停歇原因 和 颜色
+                                .domain([
+                                  '0001',
+                                  '0002',
+                                  '0003',
+                                  '0004',
+                                  '0005',
+                                  '0006',
+                                  '0007',
+                                  '0008',
+                                  '0009',
+                                  '0010',
+                                  '0011',
+                                  '0012',
+                                  '0013',
+                                  '0014',
+                                  '0015',
+                                  '0016',
+                                  '0017',
+                                  '0018',
+                                  '0019',
+                                  '0020',
+                                  '1000'
+                                ])
+                                .range([...d3.schemeCategory10,...d3.schemeSet3])
+                        )
+                        //********************************************//
                         (document.getElementById('timelines'));
                     // d3.select('#timelines').select('svg')
                     //     .attr('width', '1500')
